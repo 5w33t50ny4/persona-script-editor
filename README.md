@@ -163,8 +163,16 @@ npm install
 npx tauri build
 ```
 
-Requirements: Rust 1.70+, Node 18+, npm, Windows (MSVC toolchain).  
-Output: `src-tauri/target/release/persona-script-editor.exe`
+Requirements: Rust 1.70+, Node 18+, npm, Windows (MSVC toolchain).
+
+Output:
+- `src-tauri/target/release/persona-script-editor.exe` — portable exe
+- `src-tauri/target/release/bundle/nsis/Persona Script Editor_0.1.0_x64-setup.exe` — installer
+
+**Important:** Place any `.tbl` file (e.g. `Persona_jap.tbl`) in the same folder as the exe before running.
+
+> **Note:** Do not use `cargo build --release` directly — it builds only the Rust backend without the frontend.  
+> Always use `npx tauri build` to get a working executable with the UI embedded.
 
 ---
 
