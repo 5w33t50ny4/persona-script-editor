@@ -67,22 +67,18 @@ pub fn parse_script(sub_file: &[u8]) -> Option<EventScript> {
     debug!("parse_script: size={} hdr={} data={} ett=0x{:04x} table_ptr=0x{:04x}", 
         sub_file.len(), header_size, data.len(), ett, table_ptr);
 
-    // No strings if table_ptr is 0xFFFF or beyond data
-    if table_ptr == 0xFFFF || table_ptr >= data.len() {
-        debug!("parse_script: no strings (table_ptr=0x{:04x})", table_ptr);
-        return Some(EventScript {
-            header_size,
-            header,
-            ett,
-            table_ptr,
-            strings: Vec::new(),
-            data,
-        });
-    }
+    // Scan for string pointers using FF 55 00 00 [lo] [hi] 10 80 pattern.
+    // If table_ptr is valid, start scanning from there.
+    // If table_ptr is 0xFFFF, do a full scan of the data section (fallback).
+    let scan_start = if table_ptr != 0xFFFF && table_ptr < data.len() {
+        table_ptr
+    } else {
+        debug!("parse_script: table_ptr=0x{:04x}, using full scan fallback", table_ptr);
+        4 // start from beginning (need at least 4 bytes for prefix)
+    };
 
-    // Scan for string pointers: pattern is FF 55 00 00 [lo] [hi] 10 80
     let mut strings = Vec::new();
-    let mut i = table_ptr;
+    let mut i = scan_start;
     while i + 4 <= data.len() {
         // Check if bytes at i+2..i+4 are 10 80
         // AND bytes at i-4..i are FF 55 00 00
