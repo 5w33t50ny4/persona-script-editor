@@ -65,7 +65,9 @@ const KANA: &[char] = &[
     'ガ','ギ','グ','ゲ','ゴ','ザ','ジ','ズ','ゼ','ゾ',
     'ダ','ヂ','ヅ','デ','ド','バ','ビ','ブ','ベ','ボ',
     'パ','ピ','プ','ペ','ポ','ァ','ィ','ゥ','ェ','ォ',
-    'ャ','ュ','ョ','ッ','。','、','ー','「','」','・',
+    'ャ','ュ','ョ','ッ','。',
+    // 0x7F = 。 is the last single-byte kana (0x01-0x7F range)
+    // 0x80+ are always first byte of two-byte codes (via TBL)
 ];
 
 /// Russian Cyrillic single-byte mapping (0x01-0x43)
@@ -167,7 +169,7 @@ pub fn decode_string(raw: &[u8], table: &CharTable) -> Vec<TextElement> {
             };
             result.push(TextElement::Control(ctrl));
         } else if b >= 0x80 {
-            // Two-byte character
+            // Two-byte character (kanji, punctuation via TBL)
             if i + 1 >= raw.len() {
                 break;
             }
@@ -181,7 +183,7 @@ pub fn decode_string(raw: &[u8], table: &CharTable) -> Vec<TextElement> {
             }
             i += 2;
         } else if b >= 0x01 {
-            // Single-byte character
+            // Single-byte character (0x01-0x7F kana only)
             if let Some(&ch) = table.single_byte.get(&b) {
                 result.push(TextElement::Char(ch));
             } else {
