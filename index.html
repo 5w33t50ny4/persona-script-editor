@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Persona Script Editor</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Persona Script Editor</h1>
+      <button id="btn-open">Open ISO</button>
+      <button id="btn-save" disabled>Save ISO</button>
+      <button id="btn-export" disabled>Export JSON</button>
+      <button id="btn-import" disabled>Import JSON</button>
+      <span id="status"></span>
+    </header>
+    <main>
+      <aside id="sidebar">
+        <div id="file-list"></div>
+        <div id="scene-list"></div>
+      </aside>
+      <section id="editor">
+        <div id="strings-container">
+          <p class="placeholder">Open an ISO file to begin</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

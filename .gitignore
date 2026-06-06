@@ -1,0 +1,19 @@
+# Build artifacts
+/src-tauri/target/
+/node_modules/
+/dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+
+# Lock files (optional - remove if you want reproducible builds)
+# package-lock.json
+# Cargo.lock
