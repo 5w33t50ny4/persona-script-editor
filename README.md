@@ -13,7 +13,7 @@ Built with Rust + Tauri. Runs on Windows. Minimal RAM usage (~6MB for script dat
 1. Place `Persona_jap.tbl` (or any `.tbl` file) next to the exe
 2. Run `persona-script-editor.exe`
 3. **Open ISO** → select the `.bin` disc image (Redump Rev 1, ~699MB)
-4. Four files appear: E0, E1, E2, E3 — all game dialogue (~8000 strings total)
+4. Four files appear: E0, E1, E2, E3 — all game dialogue (~12000 strings total)
 5. Click a file → scene list → click a scene → strings
 
 ---
@@ -69,11 +69,11 @@ Rules:
 
 | File | Contents | Strings |
 |------|----------|---------|
-| ADV/E0.BIN | Dialogue (main story) | 3293 |
-| ADV/E1.BIN | Dialogue (side scenes) | 1954 |
-| ADV/E2.BIN | Dialogue (side scenes) | 2142 |
-| ADV/E3.BIN | Dialogue (ending) | 600 |
-| **Total** | | **~8000** |
+| ADV/E0.BIN | Dialogue (main story) | 3878 |
+| ADV/E1.BIN | Dialogue (side scenes) | 2242 |
+| ADV/E2.BIN | Dialogue (side scenes) | 4632 |
+| ADV/E3.BIN | Dialogue (ending) | 1380 |
+| **Total** | | **~12000** |
 
 All other files (MES, BGM, BVB, EBG, SE, B/*) contain graphics, audio, or map data. No translatable text.
 
